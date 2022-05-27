@@ -15,6 +15,11 @@ function Thumbnail({ movie }: Props) {
         className="rounded-sm object-cover md:rounded"
         layout="fill"
       />
+      <div className="absolute bottom-0 z-10  w-full bg-gradient-to-t from-[black]/50 to-transparent font-bold">
+        <h6 className="text-clip pl-0.5 text-white text-shadow-md  md:pl-2 lg:pl-2">
+          {movie?.title}
+        </h6>
+      </div>
     </div>
   )
 }
