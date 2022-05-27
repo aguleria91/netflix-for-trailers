@@ -10,7 +10,6 @@ interface Props {
 
 function Row({ title, movies }: Props) {
   const rowRef = useRef<HTMLDivElement>(null)
-
   const [isMoved, setIsMoved] = useState(false)
 
   const handleClick = (direction: string) => {
@@ -27,6 +26,8 @@ function Row({ title, movies }: Props) {
     }
   }
 
+  console.log(rowRef.current!.scrollLeft, rowRef.current!.clientWidth)
+
   return (
     <div className="h-40 space-y-0.5 md:space-y-2">
       <h2 className="w-56 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
@@ -37,7 +38,10 @@ function Row({ title, movies }: Props) {
           className={`chevScrollIcon left-2 ${!isMoved && 'hidden'}`}
           onClick={() => handleClick('left')}
         />
-        <div className="flex items-center space-x-0.5 overflow-x-scroll scrollbar-hide md:space-x-2.5 md:p-2">
+        <div
+          ref={rowRef}
+          className="flex items-center space-x-0.5 overflow-x-scroll scrollbar-hide md:space-x-2.5 md:p-2"
+        >
           {movies.map((movie) => (
             <Thumbnail key={movie.id} movie={movie} />
           ))}
