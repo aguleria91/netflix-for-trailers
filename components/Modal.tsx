@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/outline'
 import MuiModal from '@mui/material/Modal'
 import { useEffect, useState } from 'react'
-import { FaPlay } from 'react-icons/fa'
+import { FaPause, FaPlay } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { modalState, movieState } from '../atoms/modelAtom'
@@ -18,6 +18,7 @@ function Modal() {
   const [movie, setMovie] = useRecoilState(movieState)
   const [trailer, setTrailer] = useState('')
   const [muted, setMuted] = useState(true)
+  const [playing, setPlaying] = useState(true)
   const [genres, setGenres] = useState<Genre[]>([])
 
   useEffect(() => {
@@ -72,14 +73,23 @@ function Modal() {
             width="100%"
             height="100%"
             style={{ position: 'absolute', top: '0', left: '0' }}
-            playing
+            playing={playing}
             muted={muted}
           />
           <div className="absolute bottom-10 flex w-full items-center justify-between px-10">
             <div className="flex space-x-2">
-              <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-                <FaPlay className="h-7 w-7 text-black" />
-                Play
+              <button
+                onClick={() => setPlaying(!playing)}
+                className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]"
+              >
+                {playing ? (
+                  <FaPlay className="h-7 w-7 text-black" />
+                ) : (
+                  // Play
+
+                  <FaPause className="h-7 w-7 text-black" />
+                  // Pause
+                )}
               </button>
               <button className="modalButton">
                 <PlusIcon className="h-7 w-7" />
